@@ -1,0 +1,20 @@
+
+server:
+  port: 8670
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    data-username: root
+    data-password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.2.244:3306/ak_backgroud?characterEncoding=UTF-8&useSSL=true
+    dbcp2:
+      max-idle: 5
+      initial-size: 5
+      max-total: 200
+      max-wait-millis: 3000
+mybatis:
+  mapper-locations: classpath*:cn/zf/backgroud/mapper/*.xml
+  type-aliases-package: cn.zf.backgroud.mapper
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
