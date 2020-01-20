@@ -1,9 +1,14 @@
-/*
 package cn.zf.backgroud.config;
 
+import cn.zf.backgroud.filter.JwtAuthorizationFilter;
+import cn.zf.backgroud.filter.JwtFilterLogin;
+import cn.zf.backgroud.filter.MyAccessDecisionManager;
 import cn.zf.backgroud.filter.MySecurityMetadataSource;
+import cn.zf.backgroud.handler.CustomAccessDeniedHandler;
+import cn.zf.backgroud.handler.CustomAuthenticationEntryPoint;
 import cn.zf.backgroud.loginUtil.NotLogin;
 import cn.zf.backgroud.service.impl.UserDetailsServiceImpl;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
@@ -15,14 +20,13 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.stereotype.Component;
 import org.springframework.web.cors.CorsUtils;
 
-*/
 /**
  * 类描述:
  * 〈security配置类〉
  *
  * @author 张锋
  * @date 2019/12/16 14:10
- *//*
+ */
 
 @Component
 @Log4j2
@@ -34,8 +38,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private NotLogin notLogin;
     @Autowired
     private MySecurityMetadataSource securityMetadataSource;
-    */
-/**
+    @Autowired
+    private MyAccessDecisionManager accessDecisionManager;
+    @Autowired
+    private CustomAccessDeniedHandler customAccessDeniedHandler;
+    @Autowired
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
+
+    /**
      * 函数功能描述:
      * 〈配置用户信息和权限〉
      *
@@ -43,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @return : void
      * @author : 张锋
      * @date : 2019/12/16 14:23
-     *//*
+     */
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
@@ -57,8 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    */
-/**
+    /**
      * 函数功能描述:
      * 〈配置拦截的请求资源〉
      *
@@ -66,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @return : void
      * @author : 张锋
      * @date : 2019/12/16 14:23
-     *//*
+     */
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -88,7 +98,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     }
                 })
                 .and()
-                //
+                //登录认证，token生成、认证
                 .addFilter(new JwtFilterLogin(authenticationManager())).addFilter(new JwtAuthorizationFilter(authenticationManager()))
                 //配置登录页面，登录页面无需验证
                 .formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/index").permitAll()
@@ -104,4 +114,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 }
-*/

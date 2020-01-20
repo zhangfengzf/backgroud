@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.zf.backgroud.mapper.UserMapper">
 
-    <select id="getUserByName"  >
+    <select id="getUserByName" parameterType="java.lang.String"  resultMap="cn.zf.backgroud.pojo.User">
       select id,user_name,user_realname,password,department,telphone,
       case when user_scope = 1 then '内部用户' else '外部用户',
       case when user_type = 1 then '长期用户' else '单次用户',

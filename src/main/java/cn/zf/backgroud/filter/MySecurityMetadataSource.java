@@ -2,8 +2,10 @@ package cn.zf.backgroud.filter;
 
 import cn.zf.backgroud.mapper.MenuMapper;
 import cn.zf.backgroud.pojo.Menu;
+import cn.zf.backgroud.pojo.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
@@ -36,14 +38,15 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
         for (Menu menu:allMenuIsLogin
              ) {
             if (antPathMatcher.match(menu.getUrl(),requestUrl)){
-
-
-
-
+                List<Role> roles = menu.getRoles();
+                int size = roles.size();
+                String[] strings = new String[size];
+                for (int i = 0; i <size ; i++) {
+                    strings[i] = roles.get(i).getRoleCode();
+                }
+                return SecurityConfig.createList(strings);
             }
         }
-
-
         return null;
     }
 

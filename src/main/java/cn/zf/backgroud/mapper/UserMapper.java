@@ -1,6 +1,7 @@
 package cn.zf.backgroud.mapper;
 
 import cn.zf.backgroud.pojo.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,7 +23,7 @@ public interface UserMapper {
      * @author : 张锋
      * @date : 2019/12/16 17:57
      */
-    User getUserByName(String userName);
+    User getUserByName(@Param("userName") String userName);
 
 
 
